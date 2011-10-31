@@ -1,0 +1,8 @@
+#import "<$managedObjectClassName$>.h"
+#import "NSManagedObjectContext-EasyFetch.h"
+
+@implementation <$managedObjectClassName$>
+
+// Custom logic goes here.
+
+@end
