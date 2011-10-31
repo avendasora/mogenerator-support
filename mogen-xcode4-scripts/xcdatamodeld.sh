@@ -15,10 +15,10 @@ echo $templatePath
 basePath=${SOURCE_ROOT}/${PROJECT_NAME}
 echo $basePath
 
-humanDir=${basePath}/ModelClasses
+humanDir=${basePath}
 echo $humanDir
 
-machineDir=${humanDir}/MOGenerated
+machineDir=${humanDir}
 echo $machineDir
 
 currentModelVersion=`/usr/libexec/PlistBuddy "${SCRIPT_INPUT_FILE_0}/.xccurrentversion" -c 'print _XCCurrentVersionName'`

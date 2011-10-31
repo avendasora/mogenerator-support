@@ -15,10 +15,10 @@ echo $templatePath
 basePath=${SOURCE_ROOT}/${PROJECT_NAME}
 echo $basePath
 
-humanDir=${basePath}/ModelClasses
+humanDir=${basePath}
 echo $humanDir
 
-machineDir=${humanDir}/MOGenerated
+machineDir=${humanDir}
 echo $machineDir
 
 echo mogenerator --model \"${SCRIPT_INPUT_FILE_0}\" --base-class \"${baseClass}\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
