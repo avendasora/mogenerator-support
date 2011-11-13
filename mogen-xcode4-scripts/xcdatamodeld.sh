@@ -6,7 +6,7 @@
 
 $echo ${SCRIPT_INPUT_FILE_0}
 
-baseClass=KESManagedObject
+baseClass=NSManagedObject
 echo $baseClass
 
 templatePath=${SOURCE_ROOT}/../mogenerator-support/mogen-templates
