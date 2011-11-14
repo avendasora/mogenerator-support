@@ -6,9 +6,6 @@
 
 $echo ${SCRIPT_INPUT_FILE_0}
 
-baseClass=KESManagedObject
-echo $baseClass
-
 templatePath=${SOURCE_ROOT}/../mogenerator-support/mogen-templates
 echo $templatePath
 
@@ -20,6 +17,12 @@ echo $humanDir
 
 machineDir=${humanDir}
 echo $machineDir
+
+#echo mogenerator --model \"${SCRIPT_INPUT_FILE_0}\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
+#mogenerator --model "${SCRIPT_INPUT_FILE_0}" --template-path "${templatePath}" --machine-dir "${machineDir}" --human-dir "${humanDir}"
+
+baseClass=KESManagedObject
+echo $baseClass
 
 echo mogenerator --model \"${SCRIPT_INPUT_FILE_0}\" --base-class \"${baseClass}\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
 mogenerator --model "${SCRIPT_INPUT_FILE_0}" --base-class "${baseClass}" --template-path "${templatePath}" --machine-dir "${machineDir}" --human-dir "${humanDir}"

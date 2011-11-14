@@ -6,23 +6,26 @@
 
 $echo ${SCRIPT_INPUT_FILE_0}
 
-baseClass=NSManagedObject
-echo $baseClass
-
 templatePath=${SOURCE_ROOT}/../mogenerator-support/mogen-templates
-echo $templatePath
+echo MOGen templatePath = ${templatePath}
 
-basePath=${SOURCE_ROOT}/${PROJECT_NAME}
-echo $basePath
+basePath=${SOURCE_ROOT}/${PROJECT_NAME}/MOs
+echo MOGen basePath = ${basePath}
 
 humanDir=${basePath}
-echo $humanDir
+echo MOGen humanDir = ${humanDir}
 
-machineDir=${humanDir}
-echo $machineDir
+machineDir=${humanDir}/Generated
+echo MOGen machineDir = ${machineDir}
 
 currentModelVersion=`/usr/libexec/PlistBuddy "${SCRIPT_INPUT_FILE_0}/.xccurrentversion" -c 'print _XCCurrentVersionName'`
-echo $currentModelVersion
+echo MOGen currentModelVersion = ${currentModelVersion}
 
-echo mogenerator --model \"${SCRIPT_INPUT_FILE_0}/$currentModelVersion\" --base-class \"${baseClass}\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
+#echo mogenerator --model \"${SCRIPT_INPUT_FILE_0}/$currentModelVersion\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
+#mogenerator --model "${SCRIPT_INPUT_FILE_0}/$currentModelVersion" --template-path "${templatePath}" --machine-dir "${machineDir}" --human-dir "${humanDir}"
+
+baseClass=KESManagedObject
+echo MOGen baseClass = ${baseClass}
+
+echo MOGen command to execute: mogenerator --model \"${SCRIPT_INPUT_FILE_0}/$currentModelVersion\" --base-class \"${baseClass}\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
 mogenerator --model "${SCRIPT_INPUT_FILE_0}/$currentModelVersion" --base-class "${baseClass}" --template-path "${templatePath}" --machine-dir "${machineDir}" --human-dir "${humanDir}"
