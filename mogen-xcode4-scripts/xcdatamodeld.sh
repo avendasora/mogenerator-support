@@ -6,26 +6,26 @@
 
 $echo ${SCRIPT_INPUT_FILE_0}
 
-templatePath=${SOURCE_ROOT}/../mogenerator-support/mogen-templates
-echo MOGen templatePath = ${templatePath}
+TEMPLATE_PATH=${SOURCE_ROOT}/../mogenerator-support/mogen-templates
+echo "MOGen TEMPLATE_PATH = ${TEMPLATE_PATH}"
 
-basePath=${SOURCE_ROOT}/${PROJECT_NAME}/MOs
-echo MOGen basePath = ${basePath}
+BASE_PATH=${SOURCE_ROOT}/${PROJECT_NAME}/MOs
+echo "MOGen BASE_PATH = ${BASE_PATH}"
 
-humanDir=${basePath}
-echo MOGen humanDir = ${humanDir}
+HUMAN_DIR=${BASE_PATH}
+echo "MOGen HUMAN_DIR = ${HUMAN_DIR}"
 
-machineDir=${humanDir}/Generated
-echo MOGen machineDir = ${machineDir}
+MACHINE_DIR=${HUMAN_DIR}/Generated
+echo "MOGen MACHINE_DIR = ${MACHINE_DIR}"
 
-currentModelVersion=`/usr/libexec/PlistBuddy "${SCRIPT_INPUT_FILE_0}/.xccurrentversion" -c 'print _XCCurrentVersionName'`
-echo MOGen currentModelVersion = ${currentModelVersion}
+CURRENT_MODEL_VERSION=`/usr/libexec/PlistBuddy "${SCRIPT_INPUT_FILE_0}/.xccurrentversion" -c 'print _XCCurrentVersionName'`
+echo "MOGen CURRENT_MODEL_VERSION = ${CURRENT_MODEL_VERSION}"
 
-#echo mogenerator --model \"${SCRIPT_INPUT_FILE_0}/$currentModelVersion\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
-#mogenerator --model "${SCRIPT_INPUT_FILE_0}/$currentModelVersion" --template-path "${templatePath}" --machine-dir "${machineDir}" --human-dir "${humanDir}"
+BASE_CLASS_CLAUSE=""
+if [ $1 ]; then 
+	 BASE_CLASS_CLAUSE=" --base-class ${1}"
+fi
+echo "MOGen BASE_CLASS_CLAUSE = ${BASE_CLASS_CLAUSE}"
 
-baseClass=KESManagedObject
-echo MOGen baseClass = ${baseClass}
-
-echo MOGen command to execute: mogenerator --model \"${SCRIPT_INPUT_FILE_0}/$currentModelVersion\" --base-class \"${baseClass}\" --template-path \"${templatePath}\" --machine-dir \"${machineDir}\" --human-dir \"${humanDir}\"
-mogenerator --model "${SCRIPT_INPUT_FILE_0}/$currentModelVersion" --base-class "${baseClass}" --template-path "${templatePath}" --machine-dir "${machineDir}" --human-dir "${humanDir}"
+echo "MOGen command to execute: mogenerator --model \"${SCRIPT_INPUT_FILE_0}/$CURRENT_MODEL_VERSION\"${BASE_CLASS_CLAUSE} --template-path \"${TEMPLATE_PATH}\" --machine-dir \"${MACHINE_DIR}\" --human-dir \"${HUMAN_DIR}\""
+mogenerator --model "${SCRIPT_INPUT_FILE_0}/$CURRENT_MODEL_VERSION"${BASE_CLASS_CLAUSE} --template-path "${TEMPLATE_PATH}" --machine-dir "${MACHINE_DIR}" --human-dir "${HUMAN_DIR}"
