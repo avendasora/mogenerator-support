@@ -1,5 +1,5 @@
 #!/bin/sh
-#  mogend.sh
+#  xdatamodeld.sh
 #
 #  Created by David Avendasora on 10/31/2011
 #  Based on the scripts created by Jean-Denis Muys
