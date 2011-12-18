@@ -15,7 +15,7 @@
 
 + (NSString*)entityName {
 	static NSString* entityName_ = nil;	
-	if (entityName_ == nil) {
+	if (!entityName_) {
 		entityName_ = @"<$name$>";
 	}	
 	return entityName_;
@@ -34,7 +34,7 @@
 
 <$foreach Attribute noninheritedAttributes do$>+ (NSString*)<$Attribute.name$>Key {
 	static NSString* <$Attribute.name$>Key_ = nil;	
-	if (<$Attribute.name$>Key_ == nil) {
+	if (!<$Attribute.name$>Key_) {
 		<$Attribute.name$>Key_ = @"<$Attribute.name$>";
 	}	
 	return <$Attribute.name$>Key_;
@@ -42,7 +42,7 @@
 
 <$endforeach do$><$foreach Relationship noninheritedRelationships do$>+ (NSString*)<$Relationship.name$>Key {
 	static NSString* <$Relationship.name$>Key_ = nil;	
-	if (<$Relationship.name$>Key_ == nil) {
+	if (!<$Relationship.name$>Key_) {
 		<$Relationship.name$>Key_ = @"<$Relationship.name$>";
 	}	
 	return <$Relationship.name$>Key_;
@@ -50,7 +50,7 @@
 
 <$endforeach do$><$foreach FetchedProperty noninheritedFetchedProperties do$>+ (NSString*)<$FetchedProperty.name$>Key {
 	static NSString* <$FetchedProperty.name$>Key_ = nil;	
-	if (<$FetchedProperty.name$>Key_ == nil) {
+	if (!<$FetchedProperty.name$>Key_) {
 		<$FetchedProperty.name$>Key_ = @"<$FetchedProperty.name$>";
 	}	
 	return <$FetchedProperty.name$>Key_;
