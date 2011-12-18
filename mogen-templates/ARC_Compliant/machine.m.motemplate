@@ -23,13 +23,10 @@
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType$><$if Attribute.hasScalarAttributeType$>
-	if ([key isEqualToString:@"<$Attribute.name$>Value"]) {
+	<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType$><$if Attribute.hasScalarAttributeType$>if ([key isEqualToString:@"<$Attribute.name$>Value"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"<$Attribute.name$>"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-	}<$endif$><$endif$><$endforeach do$>
-
-	return keyPaths;
+	}<$endif$><$endif$><$endforeach do$>return keyPaths;
 }
 
 <$foreach Attribute noninheritedAttributes do$>+ (NSString*)<$Attribute.name$>Key {
@@ -79,29 +76,37 @@
 	return (<$managedObjectClassName$>ID*)[super objectID];
 }
 
-<$foreach Attribute noninheritedAttributes do$>
-<$if Attribute.hasDefinedAttributeType$>@dynamic <$Attribute.name$>;
-<$if Attribute.hasScalarAttributeType$>- (<$Attribute.scalarAttributeType$>)<$Attribute.name$>Value {
+<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType$>
+// Attribute: <$Attribute.name$>
+// Basic getter and setter for <$Attribute.name$> provided by CoreData
+@dynamic <$Attribute.name$>;
+<$if Attribute.hasScalarAttributeType$>
+// Special getter for <$Attribute.name$> that returns a <$Attribute.scalarAttributeType$> value
+- (<$Attribute.scalarAttributeType$>)<$Attribute.name$>Value {
 	NSNumber *result = [self <$Attribute.name$>];
 	return [result <$Attribute.scalarAttributeType.camelCaseString$>Value];
 }
 
+// Special setter for <$Attribute.name$> that takes a <$Attribute.scalarAttributeType$> value
 - (void)set<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)value_ {
 	[self set<$Attribute.name.initialCapitalString$>:[NSNumber numberWith<$Attribute.scalarAttributeType.camelCaseString.initialCapitalString$>:value_]];
 }
 
+// Special getter for primitive<$Attribute.name.initialCapitalString$> that returns a <$Attribute.scalarAttributeType$>
 - (<$Attribute.scalarAttributeType$>)primitive<$Attribute.name.initialCapitalString$>Value {
 	NSNumber *result = [self primitive<$Attribute.name.initialCapitalString$>];
 	return [result <$Attribute.scalarAttributeType.camelCaseString$>Value];
 }
 
+// Special setter for primitive<$Attribute.name.initialCapitalString$> that takes a <$Attribute.scalarAttributeType$>
 - (void)setPrimitive<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)value_ {
 	[self setPrimitive<$Attribute.name.initialCapitalString$>:[NSNumber numberWith<$Attribute.scalarAttributeType.camelCaseString.initialCapitalString$>:value_]];
-}
-<$endif$><$endif$><$endforeach do$>
+}<$endif$><$endif$><$endforeach do$>
 
 <$foreach Relationship noninheritedRelationships do$>
-@dynamic <$Relationship.name$>;<$if Relationship.isToMany$>
+// Basic getter and setter for <$Attribute.name$> provided by CoreData
+@dynamic <$Relationship.name$>;
+<$if Relationship.isToMany$>
 - (<$Relationship.mutableCollectionClassName$>*)<$Relationship.name$>Set {
 	[self willAccessValueForKey:[_<$name$> <$Relationship.name$>Key]];
 	<$Relationship.mutableCollectionClassName$> *result = (<$Relationship.mutableCollectionClassName$>*)[self mutableSetValueForKey:[_<$name$> <$Relationship.name$>Key]];
@@ -112,8 +117,7 @@
 <$endforeach do$>
 
 <$foreach FetchedProperty noninheritedFetchedProperties do$>
-@dynamic <$FetchedProperty.name$>;
-<$endforeach do$>
+@dynamic <$FetchedProperty.name$>;<$endforeach do$>
 
 <$foreach FetchRequest prettyFetchRequests do$>
 <$if FetchRequest.singleResult$>
