@@ -4,9 +4,10 @@
 #import <CoreData/CoreData.h>
 <$if hasCustomSuperentity$>#import "<$customSuperentity$>.h"
 <$endif$>
-<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasTransformableAttributeType$>
+// NON-INHERITED ATTRIBUTES<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasTransformableAttributeType$>
 @class <$Attribute.objectAttributeType$>;<$endif$><$endforeach do$>
-<$foreach Relationship noninheritedRelationships do$>
+
+// NON-INHERITED RELATIONSHIPS<$foreach Relationship noninheritedRelationships do$>
 @class <$Relationship.destinationEntity.managedObjectClassName$>;<$endforeach do$>
 
 @interface <$managedObjectClassName$>ID : NSManagedObjectID {}
@@ -24,8 +25,7 @@
 - (id)initWith<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>*)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name.initialCapitalString$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>*)<$Relationship.name$>_ <$endif$><$endforeach do$>insertIntoManagedObjectContext:moc_;
 - (<$managedObjectClassName$>ID*)objectID;
 
-// ATTRIBUTES
-<$foreach Attribute noninheritedAttributes do$>
+// ATTRIBUTES<$foreach Attribute noninheritedAttributes do$>
 <$if Attribute.hasDefinedAttributeType$>@property (nonatomic, strong) <$Attribute.objectAttributeType$> *<$Attribute.name$>;<$if Attribute.hasScalarAttributeType$>@property <$Attribute.scalarAttributeType$> <$Attribute.name$>Value;
 - (<$Attribute.scalarAttributeType$>)<$Attribute.name$>Value;
 - (void)set<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)<$Attribute.name$>_;
@@ -33,8 +33,7 @@
 //- (BOOL)validate<$Attribute.name.initialCapitalString$>:(id*)value_ error:(NSError**)error_;
 <$endif$><$endforeach do$>
 
-// RELATIONSHIPS
-<$foreach Relationship noninheritedRelationships do$>
+// RELATIONSHIPS<$foreach Relationship noninheritedRelationships do$>
 <$if Relationship.isToMany$>@property (nonatomic, strong) NSSet* <$Relationship.name$>;
 - (NSMutableSet*)<$Relationship.name$>Set;<$else$>@property (nonatomic, strong) <$Relationship.destinationEntity.managedObjectClassName$>* <$Relationship.name$>;
 //- (BOOL)validate<$Relationship.name.initialCapitalString$>:(id*)value_ error:(NSError**)error_;<$endif$>
@@ -50,26 +49,22 @@
 
 @interface _<$managedObjectClassName$> (CoreDataGeneratedAccessors)
 
-// RELATIONSHIPS
-
-<$foreach Relationship noninheritedRelationships do$><$if Relationship.isToMany$>- (void)add<$Relationship.name.initialCapitalString$>:(NSSet*)value_;
+// RELATIONSHIPS<$foreach Relationship noninheritedRelationships do$><$if Relationship.isToMany$>- (void)add<$Relationship.name.initialCapitalString$>:(NSSet*)value_;
 - (void)remove<$Relationship.name.initialCapitalString$>:(NSSet*)value_;
 - (void)add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
 - (void)remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
-
-<$endif$><$endforeach do$>@end
+<$endif$><$endforeach do$>
+@end
 
 @interface _<$managedObjectClassName$> (CoreDataGeneratedPrimitiveAccessors)
 
-//ATTRIBUTES
-<$foreach Attribute noninheritedAttributes do$>
+// ATTRIBUTES<$foreach Attribute noninheritedAttributes do$>
 - (<$Attribute.objectAttributeType$>*)primitive<$Attribute.name.initialCapitalString$>;
 - (void)setPrimitive<$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>*)value;<$if Attribute.hasScalarAttributeType$>
 - (<$Attribute.scalarAttributeType$>)primitive<$Attribute.name.initialCapitalString$>Value;
 - (void)setPrimitive<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)value_;<$endif$>
 <$endforeach do$>
-// RELATIONSHIPS
-<$foreach Relationship noninheritedRelationships do$>
+// RELATIONSHIPS<$foreach Relationship noninheritedRelationships do$>
 <$if Relationship.isToMany$>- (NSMutableSet*)primitive<$Relationship.name.initialCapitalString$>;
 - (void)setPrimitive<$Relationship.name.initialCapitalString$>:(NSMutableSet*)value;<$else$>- (<$Relationship.destinationEntity.managedObjectClassName$>*)primitive<$Relationship.name.initialCapitalString$>_;
 - (void)setPrimitive<$Relationship.name.initialCapitalString$>:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;<$endif$>
