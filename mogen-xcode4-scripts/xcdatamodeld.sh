@@ -6,16 +6,16 @@
 
 $echo ${SCRIPT_INPUT_FILE_0}
 
-TEMPLATE_PATH=${SOURCE_ROOT}/../mogenerator-support/mogen-templates
+TEMPLATE_PATH="${SRCROOT}/../mogenerator-support/mogen-templates/ARC_Compliant"
 echo "MOGen TEMPLATE_PATH = ${TEMPLATE_PATH}"
 
-BASE_PATH=${SOURCE_ROOT}/${PROJECT_NAME}/MOs
+BASE_PATH="${SOURCE_ROOT}/${PROJECT_NAME}/MOs"
 echo "MOGen BASE_PATH = ${BASE_PATH}"
 
-HUMAN_DIR=${BASE_PATH}
+HUMAN_DIR="${BASE_PATH}"
 echo "MOGen HUMAN_DIR = ${HUMAN_DIR}"
 
-MACHINE_DIR=${HUMAN_DIR}/Generated
+MACHINE_DIR="${HUMAN_DIR}/Generated"
 echo "MOGen MACHINE_DIR = ${MACHINE_DIR}"
 
 CURRENT_MODEL_VERSION=`/usr/libexec/PlistBuddy "${SCRIPT_INPUT_FILE_0}/.xccurrentversion" -c 'print _XCCurrentVersionName'`
