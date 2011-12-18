@@ -8,14 +8,6 @@
 
 @implementation _<$managedObjectClassName$>
 
-/*
-NSString * const k<$name$>EntityName = @"<$name$>";
-<$foreach Attribute noninheritedAttributes do$>NSString * const k<$name.initialCapitalString$><$Attribute.name.initialCapitalString$>Key = @"<$Attribute.name$>";
-<$endforeach do$><$foreach Relationship noninheritedRelationships do$>NSString * const k<$name.initialCapitalString$><$Relationship.name.initialCapitalString$>Key = @"<$Relationship.name$>";
-<$endforeach do$><$foreach FetchedProperty noninheritedFetchedProperties do$>NSString * const k<$name.initialCapitalString$><$FetchedProperty.name.initialCapitalString$>Key = @"<$FetchedProperty.name$>";
-<$endforeach do$>
-*/
-
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"<$name$>" inManagedObjectContext:moc_];

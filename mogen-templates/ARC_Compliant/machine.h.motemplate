@@ -4,13 +4,7 @@
 #import <CoreData/CoreData.h>
 <$if hasCustomSuperentity$>#import "<$customSuperentity$>.h"
 <$endif$>
-/*
-extern NSString * const k<$name.initialCapitalString$>EntityName;
-<$foreach Attribute noninheritedAttributes do$>extern NSString * const k<$name.initialCapitalString$><$Attribute.name.initialCapitalString$>Key;
-<$endforeach do$><$foreach Relationship noninheritedRelationships do$>extern NSString * const k<$name.initialCapitalString$><$Relationship.name.initialCapitalString$>Key;
-<$endforeach do$><$foreach FetchedProperty noninheritedFetchedProperties do$>extern NSString * const k<$name.initialCapitalString$><$FetchedProperty.name.initialCapitalString$>Key;
-<$endforeach do$>
-*/<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasTransformableAttributeType$>
+<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasTransformableAttributeType$>
 @class <$Attribute.objectAttributeType$>;<$endif$><$endforeach do$>
 <$foreach Relationship noninheritedRelationships do$>
 @class <$Relationship.destinationEntity.managedObjectClassName$>;<$endforeach do$>
