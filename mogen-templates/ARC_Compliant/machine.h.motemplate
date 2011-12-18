@@ -26,10 +26,10 @@
 - (<$managedObjectClassName$>ID*)objectID;
 
 // ATTRIBUTES<$foreach Attribute noninheritedAttributes do$>
-<$if Attribute.hasDefinedAttributeType$>@property (nonatomic, strong) <$Attribute.objectAttributeType$> *<$Attribute.name$>;<$if Attribute.hasScalarAttributeType$>@property <$Attribute.scalarAttributeType$> <$Attribute.name$>Value;
+<$if Attribute.hasDefinedAttributeType$>@property (nonatomic, strong) <$Attribute.objectAttributeType$> *<$Attribute.name$>;<$if Attribute.hasScalarAttributeType$>
+@property <$Attribute.scalarAttributeType$> <$Attribute.name$>Value;
 - (<$Attribute.scalarAttributeType$>)<$Attribute.name$>Value;
-- (void)set<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)<$Attribute.name$>_;
-<$endif$>
+- (void)set<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)<$Attribute.name$>_;<$endif$>
 //- (BOOL)validate<$Attribute.name.initialCapitalString$>:(id*)value_ error:(NSError**)error_;
 <$endif$><$endforeach do$>
 
