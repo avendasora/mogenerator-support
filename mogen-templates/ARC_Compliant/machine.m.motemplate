@@ -8,7 +8,7 @@
 
 @implementation _<$managedObjectClassName$>
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (id)insertInMOC:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"<$name$>" inManagedObjectContext:moc_];
 }
@@ -54,17 +54,19 @@
 }
 
 <$endforeach do$>
-+ (id)create<$name$>With<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>*)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name.initialCapitalString$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>*)<$Relationship.name$>_ <$endif$><$endforeach do$>insertIntoManagedObjectContext:(NSManagedObjectContext*)moc_{
++ (id)create<$managedObjectClassName$>InMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_ <$endif$><$endforeach do$>{
 	NSParameterAssert(moc_);
-	return [[self alloc] initWith<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name.initialCapitalString$>:<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name.initialCapitalString$>:<$Relationship.name$>_ <$endif$><$endforeach do$>insertIntoManagedObjectContext:moc_];
+    _<$managedObjectClassName$> * new<$managedObjectClassName$> = [[self alloc] initInMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:<$Relationship.name$>_ <$endif$><$endforeach do$>];
+    NSLog(@"%@ created: %@", [_<$managedObjectClassName$> entityName], [new<$managedObjectClassName$> description]);
+	return new<$managedObjectClassName$>;
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (NSEntityDescription*)entityInMOC:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription entityForName:[_<$name$> entityName] inManagedObjectContext:moc_];
 }
 
-- (id)initWith<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>*)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name.initialCapitalString$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>*)<$Relationship.name$>_ <$endif$><$endforeach do$>insertIntoManagedObjectContext:moc_ {
+- (id)initInMOC:moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$>*)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>*)<$Relationship.name$>_ <$endif$><$endforeach do$> {
 	NSParameterAssert(moc_);
 	self = [super initWithEntity:[NSEntityDescription entityForName:[_<$name$> entityName] inManagedObjectContext:moc_] insertIntoManagedObjectContext:moc_];<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$>
 	self.<$Attribute.name$> = <$Attribute.name$>_;<$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$>
