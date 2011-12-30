@@ -49,11 +49,11 @@
 
 @interface _<$managedObjectClassName$> (CoreDataGeneratedAccessors)
 
-// RELATIONSHIPS<$foreach Relationship noninheritedRelationships do$><$if Relationship.isToMany$>- (void)add<$Relationship.name.initialCapitalString$>:(NSSet*)value_;
+// RELATIONSHIPS<$foreach Relationship noninheritedRelationships do$><$if Relationship.isToMany$>
+- (void)add<$Relationship.name.initialCapitalString$>:(NSSet*)value_;
 - (void)remove<$Relationship.name.initialCapitalString$>:(NSSet*)value_;
 - (void)add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
-- (void)remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
-<$endif$><$endforeach do$>
+- (void)remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;<$endif$><$endforeach do$>
 @end
 
 @interface _<$managedObjectClassName$> (CoreDataGeneratedPrimitiveAccessors)
