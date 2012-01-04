@@ -54,9 +54,9 @@
 }
 
 <$endforeach do$>
-+ (id)create<$managedObjectClassName$>InMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_ <$endif$><$endforeach do$>{
++ (id)create<$managedObjectClassName$>InMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute attributesByName do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_ <$endif$><$endforeach do$>{
 	NSParameterAssert(moc_);
-    _<$managedObjectClassName$> * new<$managedObjectClassName$> = [[self alloc] initInMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:<$Relationship.name$>_ <$endif$><$endforeach do$>];
+    _<$managedObjectClassName$> * new<$managedObjectClassName$> = [[self alloc] initInMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute attributesByName do$><$if !Attribute.isOptional$><$Attribute.name$>:<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$><$Relationship.name$>:<$Relationship.name$>_ <$endif$><$endforeach do$>];
     NSLog(@"%@ created: %@", [_<$managedObjectClassName$> entityName], [new<$managedObjectClassName$> description]);
 	return new<$managedObjectClassName$>;
 }
@@ -66,10 +66,11 @@
 	return [NSEntityDescription entityForName:[_<$name$> entityName] inManagedObjectContext:moc_];
 }
 
-- (id)initInMOC:moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$>*)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>*)<$Relationship.name$>_ <$endif$><$endforeach do$> {
+- (id)initInMOC:moc_ <$foreach Attribute attributesByName do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$>*)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$>*)<$Relationship.name$>_ <$endif$><$endforeach do$> {
 	NSParameterAssert(moc_);
-	self = [super initWithEntity:[NSEntityDescription entityForName:[_<$name$> entityName] inManagedObjectContext:moc_] insertIntoManagedObjectContext:moc_];<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$>
-	self.<$Attribute.name$> = <$Attribute.name$>_;<$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$>
+	self = [NSEntityDescription insertNewObjectForEntityForName:[_<$name$> entityName] 
+                                         inManagedObjectContext:moc_];<$foreach Attribute attributesByName do$><$if !Attribute.isOptional$>
+	self.<$Attribute.name$> = <$Attribute.name$>_;<$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$>
 	self.<$Relationship.name$> = <$Relationship.name$>_;<$endif$><$endforeach do$>
 	return self;
 }

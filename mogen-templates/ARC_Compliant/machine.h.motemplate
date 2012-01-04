@@ -19,10 +19,10 @@
 <$endforeach do$><$foreach Relationship noninheritedRelationships do$>+ (NSString *)<$Relationship.name$>Key;
 <$endforeach do$><$foreach FetchedProperty noninheritedFetchedProperties do$>+ (NSString *)<$FetchedProperty.name$>Key;
 <$endforeach do$>
-+ (id)create<$name$>InMOC:(NSManagedObjectContext *)moc_<$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$> <$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_<$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$> <$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_<$endif$><$endforeach do$>;
++ (id)create<$name$>InMOC:(NSManagedObjectContext *)moc_<$foreach Attribute attributesByName do$><$if !Attribute.isOptional$> <$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_<$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$> <$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_<$endif$><$endforeach do$>;
 + (NSEntityDescription *)entityInMOC:(NSManagedObjectContext *)moc_;
 
-- (id)initInMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute noninheritedAttributes do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship noninheritedRelationships do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_ <$endif$><$endforeach do$>;
+- (id)initInMOC:(NSManagedObjectContext *)moc_ <$foreach Attribute attributesByName do$><$if !Attribute.isOptional$><$Attribute.name$>:(<$Attribute.objectAttributeType$> *)<$Attribute.name$>_ <$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$><$Relationship.name$>:(<$if Relationship.isToMany$>NSSet<$endif$><$if !Relationship.isToMany$><$Relationship.destinationEntity.managedObjectClassName$><$endif$> *)<$Relationship.name$>_ <$endif$><$endforeach do$>;
 - (<$managedObjectClassName$>ID *)objectID;
 
 // ATTRIBUTES<$foreach Attribute noninheritedAttributes do$>
