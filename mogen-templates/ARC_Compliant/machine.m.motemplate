@@ -30,7 +30,7 @@
 }
 
 <$foreach Attribute noninheritedAttributes do$>+ (NSString*)<$Attribute.name$>Key {
-	static NSString* <$Attribute.name$>Key_ = nil;	
+	static NSString * <$Attribute.name$>Key_ = nil;	
 	if (!<$Attribute.name$>Key_) {
 		<$Attribute.name$>Key_ = @"<$Attribute.name$>";
 	}	
@@ -70,8 +70,8 @@
 	NSParameterAssert(moc_);
 	self = [NSEntityDescription insertNewObjectForEntityForName:[_<$name$> entityName] 
                                          inManagedObjectContext:moc_];<$foreach Attribute attributesByName do$><$if !Attribute.isOptional$>
-	self.<$Attribute.name$> = <$Attribute.name$>_;<$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$>
-	self.<$Relationship.name$> = <$Relationship.name$>_;<$endif$><$endforeach do$>
+	[self set<$Attribute.name.initialCapitalString$>:<$Attribute.name$>_];<$endif$><$endforeach do$><$foreach Relationship relationshipsByName do$><$if !Relationship.isOptional$>
+	[self set<$Relationship.name.initialCapitalString$>:<$Relationship.name$>_];<$endif$><$endforeach do$>
 	return self;
 }
 
